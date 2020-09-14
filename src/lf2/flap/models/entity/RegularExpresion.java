@@ -63,4 +63,55 @@ public class RegularExpresion {
 
 		return regex;
 	}
+	
+	public String solve(State ini) {
+		String out = "";
+		
+		List<Transition> auxol = ini.getOutTransitions();
+
+		if (auxol.isEmpty())
+			return out;
+		
+//		for (Transition t : auxol) {
+//			if 
+//			out += t.getEndState() + "+";
+//		}
+		
+		for (int i = 0; i < auxol.size(); i++) {
+			if ((i+1) == auxol.size()) {
+				out += auxol.get(i).getValue();
+			} else {
+				out += auxol.get(i).getValue() + "+";
+			}
+		}
+		
+		
+		
+		return out;
+		
+	}
+	
+	public Automaton toAutomaton(String regex) {
+		Automaton a = new Automaton();
+		String value = "q";
+		int count = 0;
+		
+		if (regex == null || regex.isEmpty()) {
+			return null;
+		}
+		
+		for (int i = 0; i < regex.length(); i++) {
+			if (regex.charAt(i) == '.') {
+				State s1 = new State(automaton, value + count);
+				count++;
+				State s2 = new State(automaton, value + count);
+				count++;
+				a.addState(s1);
+				a.addState(s2);
+				a.createTransition(regex.substring(i-1, i), s1, s2);
+			}
+		}
+		
+		return null;
+	}
 }

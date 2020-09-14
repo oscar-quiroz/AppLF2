@@ -42,5 +42,9 @@ public class Automaton {
 	public boolean isThereInitialState() {
 		return initialState != null;
 	}
+	
+	public State getInitialState() {
+		return initialState;
+	}
 
 }
