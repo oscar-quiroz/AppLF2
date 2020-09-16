@@ -15,7 +15,7 @@ public class TestCanvas {
 		
 		RegularExpresion regex = new RegularExpresion("");
 		
-		CanvasRegex c = new CanvasRegex(regex.toAutomaton("a*(b+c)d"));
+		CanvasRegex c = new CanvasRegex(regex.toAutomaton("(abc+d)"));
 		
 		frame.add(c);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
