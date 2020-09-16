@@ -66,8 +66,8 @@ public class CanvasRegex extends JPanel {
 			} else {	
 				Random rnd = new Random();
 				StateFigure2 sf = new StateFigure2(automaton, s);
-				sf.x = rnd.nextInt(400) + 100;
-				sf.y = rnd.nextInt(400) + 100;
+				sf.x = rnd.nextInt(300) + 120;
+				sf.y = rnd.nextInt(300) + 120;
 				sf.setLabel(s.getLabel());
 				list.add(sf);
 				for (Transition t : s.getOutTransitions()) {
@@ -81,7 +81,7 @@ public class CanvasRegex extends JPanel {
 		for (StateFigure2 s : list) {
 			for (Transition t : s.getOutTransitions()) {
 				for (LineFigure l : listLine) {
-					if (t.getValue().equals(l.getValue())) {
+					if (t.getId() == l.getId()) { //cambiar item de busqueda
 						for (StateFigure2 stateFigure2 : list) {
 							if (t.getEndState().getLabel().equals(stateFigure2.getLabel())) {
 								l.setF(new Point((int) stateFigure2.x, (int) stateFigure2.y));

@@ -7,10 +7,12 @@ public class Automaton {
 	private List<State> states;
 	private List<Transition> transitions;
 	protected State initialState;
+	private int incrementalID;
 
 	public Automaton() {
 		this.states = new ArrayList<State>();
 		this.transitions = new ArrayList<Transition>();
+		incrementalID = 0;
 	}
 
 	public void addState(State state) {
@@ -18,17 +20,19 @@ public class Automaton {
 	}
 
 	public void createTransition(String value, State start, State end) {
-		Transition t = new Transition(value, start, end);
+		Transition t = new Transition(incrementalID, value, start, end);
 		start.getOutTransitions().add(t);
 		end.getInTransitions().add(t);
 		this.transitions.add(t);
+		incrementalID++;
 	}
 
 	public void createTransition(String value, State state) {
-		Transition t = new Transition(value, state);
+		Transition t = new Transition(incrementalID, value, state);
 		state.getOutTransitions().add(t);
 		state.getInTransitions().add(t);
 		this.transitions.add(t);
+		incrementalID++;
 	}
 
 	public List<State> getStates() {

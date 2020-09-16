@@ -18,16 +18,12 @@ public class StateFigure2 extends State {
 		super(automaton);
 		this.inTransitions = s.getInTransitions();
 		this.outTransitions = s.getOutTransitions();
-		this.isFinal = s.isInit();
-		this.isInit = s.isFinal();
+		this.isFinal = s.isFinal(); 
+		this.isInit = s.isInit();
 		this.label = s.getLabel();
 	}
 
 	public void draw(Graphics g) {
-//		for (Transition t : outTransitions) {
-//			drawLine(g, (StateFigure2) t.getEndState(), t.getValue());
-//		}
-
 		g.setColor(ViewConstants.stateColor);
 
 		if (isSelected)

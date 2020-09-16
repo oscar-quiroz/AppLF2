@@ -1,16 +1,19 @@
 package lf2.flap.models.entity;
 
 public class Transition {
+	private int id;
 	private String value;
 	private State startState, endState;
 	
-	public Transition(String value, State start, State end) {
+	public Transition(int id, String value, State start, State end) {
+		this.id = id;
 		this.value = value;
 		this.startState = start;
 		this.endState = end;
 	}
 	
-	public Transition(String value, State state) {
+	public Transition(int id, String value, State state) {
+		this.id = id;
 		this.value = value;
 		this.startState = state;
 		this.endState = state;
@@ -34,5 +37,9 @@ public class Transition {
 	
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }

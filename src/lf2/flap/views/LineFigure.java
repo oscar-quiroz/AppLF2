@@ -16,7 +16,7 @@ public class LineFigure extends Transition {
 //	private boolean isSelected = false;
 
 	public LineFigure(Transition t, Point a) {
-		super(t.getValue(), t.getStartState(), t.getEndState());
+		super(t.getId(), t.getValue(), t.getStartState(), t.getEndState());
 		this.a = a;
 	}
 
