@@ -142,7 +142,6 @@ public class RegularExpresion {
 								a.createTransition(regex.substring(i, i+1), s1, s2);
 							} else { // Si en la siguiente posición hay un bucle
 								a.createTransition(regex.substring(i, i+1), aux.get(aux.size()-1));
-								count++;
 							}
 						} else {
 							State s2 = new State(automaton, value + count);
