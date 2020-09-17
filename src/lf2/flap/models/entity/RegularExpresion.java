@@ -67,9 +67,8 @@ public class RegularExpresion {
 	
 	/**
 	 * Convierte una expresión regular en un autómata
-	 * (encontrando el parantesis de apertura para un parentesis de cierre)
-	 * @param regex
-	 * @return
+	 * @param regex expresión regular a convertir
+	 * @return a autómata
 	 */
 	public Automaton toAutomaton(String regex) {
 		Automaton a = new Automaton();
@@ -107,6 +106,7 @@ public class RegularExpresion {
 				a.createTransition(regex.substring(i+1, i+2), a.getTransitions().get(a.getTransitions().size()-c).getStartState(), s1);
 				//Crea las transiciones antes del más
 				int x = i + 2;
+				
 				if (x < regex.length())
 				while (!isSymbol(regex.charAt(x))) { //Crea las concatenaciones depués del más hasta que haya un bucle o ()
 					State s3 = new State(automaton, value + count);
@@ -115,9 +115,8 @@ public class RegularExpresion {
 					a.addState(s3);
 					aux.add(s3);
 					x++;
-					if (x >= regex.length()) { //Sale porque sí :p
+					if (x >= regex.length()) //Sale porque sí :p
 						break;
-					}
 				}
 				State s2 = new State(automaton, value + count); //estado para las transiones vacías
 				count++;
@@ -129,24 +128,28 @@ public class RegularExpresion {
 			} else { // Si no es un + o *
 				if (regex.charAt(i) != '(' && regex.charAt(i) != ')') { //Si tampoco es un ( y )
 					if (aux.isEmpty()) { //Si es la primera concatenacion
-						if (regex.charAt(i+1) != '*') { //Si en la siguiente posición no hay un bucle
-							State s1 = new State(automaton, value + count);
-							s1.setInit(true);
-							count++;
+						State s1 = new State(automaton, value + count);
+						s1.setInit(true);
+						count++;
+						a.addState(s1);
+						aux.add(s1);
+						if (i+1 < regex.length()) {
+							if (regex.charAt(i+1) != '*') { //Si en la siguiente posición no hay un bucle
+								State s2 = new State(automaton, value + count);
+								count++;
+								a.addState(s2);
+								aux.add(s2);
+								a.createTransition(regex.substring(i, i+1), s1, s2);
+							} else { // Si en la siguiente posición hay un bucle
+								a.createTransition(regex.substring(i, i+1), aux.get(aux.size()-1));
+								count++;
+							}
+						} else {
 							State s2 = new State(automaton, value + count);
 							count++;
-							a.addState(s1);
 							a.addState(s2);
-							aux.add(s1);
 							aux.add(s2);
 							a.createTransition(regex.substring(i, i+1), s1, s2);
-						} else { // Si en la siguiente posición hay un bucle
-							State s1 = new State(automaton, value + count);
-							s1.setInit(true);
-							a.addState(s1);
-							aux.add(s1);
-							a.createTransition(regex.substring(i, i+1), aux.get(aux.size()-1));
-							count++;
 						}
 					} else { //si la posición es un ( o )
 						if ((i+1) < regex.length()) { //Si no es el último elemento
